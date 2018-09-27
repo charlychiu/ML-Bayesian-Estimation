@@ -18,7 +18,6 @@ def polt_bar(x_axis, y_axis, title_label):
 
 # Maximum likelihood Estimation in binomial distribution
 def maximum_likelihood_estimation(prior, tossing_time=10, head=2):
-    property_result = 0
     result_list = []
     for i in prior:  # tossing ten times
         result_list.append(
@@ -28,10 +27,33 @@ def maximum_likelihood_estimation(prior, tossing_time=10, head=2):
         # property_result += (math.factorial(n) / (math.factorial(i) * math.factorial(n - i))) * current_p
     return np.array(result_list), np.argmax(result_list)
 
+
 def maximum_posterior_estimation(prior, likelihood):
     posterior_list = (prior * likelihood) / sum(prior * likelihood)
     return posterior_list, np.argmax(posterior_list)
 
+
+def tossing_myself(prior):
+    # get random value between [0 ,1] ten times
+    ten_coins_result = np.random.choice(2, 10)
+    head_appear_time = np.count_nonzero(ten_coins_result == 1)
+    # tail_appear_time = 10 - head_appear_time
+
+    likelihood_list, _ = maximum_likelihood_estimation(prior, 10, head_appear_time)
+    posterior, _ = maximum_posterior_estimation(prior, likelihood_list)
+    print("***")
+    print(likelihood_list)
+    print("*")
+    print(posterior)
+    return posterior
+
+
+def fifty_times_tossing(first_prior):
+    posterior = first_prior
+    for i in range(1, 6):
+        posterior = tossing_myself(posterior)
+        polt_bar(sita, posterior, "observation_posterior_estimation " + str(i))
+        # print(posterior)
 
 
 # prior 1
@@ -53,3 +75,5 @@ print("maximum_likelihood sita: " + str(sita[maximum_likelihood_of_sita_2]))
 posterior_2, maximum_posterior_of_sita_2 = maximum_posterior_estimation(prior_of_coin_2, likelihood_2)
 polt_bar(sita, posterior_2, "posterior_estimation 1")
 print("maximum_posterior sita: " + str(sita[maximum_posterior_of_sita_2]))
+
+fifty_times_tossing(prior_of_coin_1)

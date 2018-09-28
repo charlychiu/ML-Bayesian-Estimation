@@ -36,7 +36,7 @@ def tossing_myself(prior):
     head_appear_time = np.count_nonzero(ten_coins_result == 1)
     # tail_appear_time = 10 - head_appear_time
 
-    likelihood_list, _ = maximum_likelihood_estimation(prior, 10, head_appear_time)
+    likelihood_list, _ = maximum_likelihood_estimation(sita, 10, head_appear_time)
     posterior_list, _ = maximum_posterior_estimation(prior, likelihood_list)
     return posterior_list
 
@@ -45,10 +45,12 @@ def fifty_times_tossing(first_prior):
     posterior = first_prior
     for i in range(1, 51):
         posterior = tossing_myself(posterior)
-        plot_bar(sita, posterior, "observation_posterior_estimation " + str(i))
+        if i % 10 == 0:
+            plot_bar(sita, posterior, "observation_posterior_estimation " + str(i))
         # print(posterior)
 
 
+# hw (1)
 # prior 1
 print("---prior 1---")
 plot_bar(sita, prior_of_coin_1, "prior 1")
@@ -69,4 +71,11 @@ posterior_2, maximum_posterior_of_sita_2 = maximum_posterior_estimation(prior_of
 plot_bar(sita, posterior_2, "posterior_estimation 2")
 print("maximum_posterior sita: " + str(sita[maximum_posterior_of_sita_2]))
 
-# fifty_times_tossing(prior_of_coin_2)
+# hw (2)
+# requirement: tossing 50 times, observation every ten times
+# prior 1
+# print("---prior 1---")
+fifty_times_tossing(prior_of_coin_1)
+# prior 2
+# print("---prior 2---")
+fifty_times_tossing(prior_of_coin_2)

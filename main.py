@@ -43,12 +43,20 @@ def tossing_myself(prior):
 def calculate_entropy(collection_of_posterior):
     # hw (3)
     # entropy
+    collection_list = list()
     for each_time_posterior in collection_of_posterior:
-        if i != 0:
-            sum_entropy.append(float(-math.log(i, 2) * i))
-        else:
-            sum_entropy.append(0)
-    print(sum(sum_entropy))
+        sum = 0
+        for i in each_time_posterior:
+            if i != 0:
+                # print(math.log(i, 2))
+                sum += -(math.log(i, 2) * i)
+        collection_list.append(sum)
+    return collection_list
+        # if i != 0:
+        #     sum_entropy.append(float(-math.log(i, 2) * i))
+        # else:
+        #     sum_entropy.append(0)
+    # print(sum(sum_entropy))
 
 
 def fifty_times_tossing(first_prior):
@@ -89,11 +97,19 @@ def fifty_times_tossing(first_prior):
 # prior 1
 print("---prior 1---")
 pi1 = fifty_times_tossing(prior_of_coin_1)
-print(pi1)
-# calculate_entropy(pi1)
+# print(pi1)
+a = calculate_entropy(pi1)
+print(a)
+plt.plot(a)
+plt.title("prior 1 entropy")
+plt.show()
 # prior 2
 print("---prior 2---")
 pi2 = fifty_times_tossing(prior_of_coin_2)
+b = calculate_entropy(pi2)
+plt.plot(b)
+plt.title("prior 2 entropy")
+plt.show()
 # calculate_entropy(pi2)
 
 

@@ -40,6 +40,16 @@ def tossing_myself(prior):
     posterior_list, _ = maximum_posterior_estimation(prior, likelihood_list)
     return posterior_list
 
+def calculate_entropy(collection_of_posterior):
+    # hw (3)
+    # entropy
+    for each_time_posterior in collection_of_posterior:
+        if i != 0:
+            sum_entropy.append(float(-math.log(i, 2) * i))
+        else:
+            sum_entropy.append(0)
+    print(sum(sum_entropy))
+
 
 def fifty_times_tossing(first_prior):
     posterior = first_prior
@@ -79,17 +89,11 @@ def fifty_times_tossing(first_prior):
 # prior 1
 print("---prior 1---")
 pi1 = fifty_times_tossing(prior_of_coin_1)
+print(pi1)
+# calculate_entropy(pi1)
 # prior 2
 print("---prior 2---")
 pi2 = fifty_times_tossing(prior_of_coin_2)
+# calculate_entropy(pi2)
 
 
-# hw (3)
-# entropy
-H = list()
-for i in pi1[0]:
-    if i != 0:
-        H.append(-math.log(i, 2)*i)
-    else:
-        H.append("")
-print(H)

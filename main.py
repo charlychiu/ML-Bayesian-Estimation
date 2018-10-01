@@ -43,39 +43,53 @@ def tossing_myself(prior):
 
 def fifty_times_tossing(first_prior):
     posterior = first_prior
+    posterior_collection_list = list()
     for i in range(1, 51):
         posterior = tossing_myself(posterior)
-        if i % 10 == 0:
-            plot_bar(sita, posterior, "observation_posterior_estimation " + str(i))
+        posterior_collection_list.append(posterior)
+        # if i % 10 == 0:
+        #     plot_bar(sita, posterior, "observation_posterior_estimation " + str(i))
         # print(posterior)
+    return posterior_collection_list
 
 
 # hw (1)
-# prior 1
-print("---prior 1---")
-plot_bar(sita, prior_of_coin_1, "prior 1")
-likelihood_1, maximum_likelihood_of_sita_1 = maximum_likelihood_estimation(sita)
-plot_bar(sita, likelihood_1, "likelihood_estimation 1")
-print("maximum_likelihood sita: " + str(sita[maximum_likelihood_of_sita_1]))
-posterior_1, maximum_posterior_of_sita_1 = maximum_posterior_estimation(prior_of_coin_1, likelihood_1)
-plot_bar(sita, posterior_1, "posterior_estimation 1")
-print("maximum_posterior sita: " + str(sita[maximum_posterior_of_sita_1]))
-
-# prior 2
-print("---prior 2---")
-plot_bar(sita, prior_of_coin_2, "prior 2")
-likelihood_2, maximum_likelihood_of_sita_2 = maximum_likelihood_estimation(sita)
-plot_bar(sita, likelihood_2, "likelihood_estimation 2")
-print("maximum_likelihood sita: " + str(sita[maximum_likelihood_of_sita_2]))
-posterior_2, maximum_posterior_of_sita_2 = maximum_posterior_estimation(prior_of_coin_2, likelihood_2)
-plot_bar(sita, posterior_2, "posterior_estimation 2")
-print("maximum_posterior sita: " + str(sita[maximum_posterior_of_sita_2]))
+# # prior 1
+# print("---prior 1---")
+# plot_bar(sita, prior_of_coin_1, "prior 1")
+# likelihood_1, maximum_likelihood_of_sita_1 = maximum_likelihood_estimation(sita)
+# plot_bar(sita, likelihood_1, "likelihood_estimation 1")
+# print("maximum_likelihood sita: " + str(sita[maximum_likelihood_of_sita_1]))
+# posterior_1, maximum_posterior_of_sita_1 = maximum_posterior_estimation(prior_of_coin_1, likelihood_1)
+# plot_bar(sita, posterior_1, "posterior_estimation 1")
+# print("maximum_posterior sita: " + str(sita[maximum_posterior_of_sita_1]))
+#
+# # prior 2
+# print("---prior 2---")
+# plot_bar(sita, prior_of_coin_2, "prior 2")
+# likelihood_2, maximum_likelihood_of_sita_2 = maximum_likelihood_estimation(sita)
+# plot_bar(sita, likelihood_2, "likelihood_estimation 2")
+# print("maximum_likelihood sita: " + str(sita[maximum_likelihood_of_sita_2]))
+# posterior_2, maximum_posterior_of_sita_2 = maximum_posterior_estimation(prior_of_coin_2, likelihood_2)
+# plot_bar(sita, posterior_2, "posterior_estimation 2")
+# print("maximum_posterior sita: " + str(sita[maximum_posterior_of_sita_2]))
 
 # hw (2)
 # requirement: tossing 50 times, observation every ten times
 # prior 1
-# print("---prior 1---")
-fifty_times_tossing(prior_of_coin_1)
+print("---prior 1---")
+pi1 = fifty_times_tossing(prior_of_coin_1)
 # prior 2
-# print("---prior 2---")
-fifty_times_tossing(prior_of_coin_2)
+print("---prior 2---")
+pi2 = fifty_times_tossing(prior_of_coin_2)
+
+
+# hw (3)
+# entropy
+H = list()
+for i in pi1[0]:
+    if i != 0:
+        H.append(-math.log(i, 2)*i)
+    else:
+        H.append("")
+print(H)
